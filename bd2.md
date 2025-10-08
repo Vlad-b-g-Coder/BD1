@@ -68,12 +68,12 @@ erDiagram
         VARCHAR status
     }
 
-    users ||-->{ carts : "has"
-    users ||-->{ orders : "places"
-    categories ||-->{ products : "contains"
-    carts ||-->{ cart_items : "contains"
-    cart_items }>--|| products : "includes"
-    orders ||-->{ order_items : "contains"
-    order_items }>--|| products : "refers_to"
+    users ||--o{ carts : "has"
+    users ||--o{ orders : "places"
+    categories ||--o{ products : "contains"
+    carts ||--o{ cart_items : "contains"
+    cart_items }o--|| products : "includes"
+    orders ||--o{ order_items : "contains"
+    order_items }o--|| products : "refers_to"
     orders ||--|| payments : "has"
 ```
