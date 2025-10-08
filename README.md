@@ -40,6 +40,8 @@ flowchart TD
     PAYMENT_STATUS[status] -.-> PAYMENT
     
     %% Стили
+    classDef allBlack color:#000000,font-weight:bold,stroke:#000000
+    class USER,CATEGORY,PRODUCT,CART,ORDER,PAYMENT,CART_ITEM,ORDER_ITEM,USER_ID,USER_EMAIL,CATEGORY_ID,CATEGORY_NAME,PRODUCT_ID,PRODUCT_NAME,PRODUCT_PRICE,ORDER_ID,ORDER_STATUS,PAYMENT_ID,PAYMENT_STATUS allBlack
     classDef blackText fill:#e1f5fe,stroke:#01579b,color:#000000,font-weight:bold
     classDef blackArrow color:#000000,font-weight:bold
     class USER,CATEGORY,PRODUCT,ORDER blackText
