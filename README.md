@@ -1,74 +1,49 @@
-# ER-диаграмма электронного магазина
+# Электронный магазин - ER-диаграмма (Питер Чен)
 
 ```mermaid
-erDiagram
-    USER {
-        int user_id PK
-        string email
-        string password_hash
-        string full_name
-        string address
-    }
-
-    CATEGORY {
-        int category_id PK
-        string name
-        string description
-    }
-
-    PRODUCT {
-        int product_id PK
-        string name
-        string description
-        decimal price
-        int stock_quantity
-        int category_id FK
-    }
-
-    CART {
-        int cart_id PK
-        int user_id FK
-    }
-
-    CART_ITEM {
-        int cart_item_id PK
-        int cart_id FK
-        int product_id FK
-        int quantity
-    }
-
-    ORDER {
-        int order_id PK
-        int user_id FK
-        datetime order_date
-        string status
-        decimal total_amount
-        string shipping_address
-    }
-
-    ORDER_ITEM {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
-        decimal unit_price
-    }
-
-    PAYMENT {
-        int payment_id PK
-        int order_id FK
-        datetime payment_date
-        decimal amount
-        string payment_method
-        string status
-    }
-
-    USER ||--o{ CART : has
-    USER ||--o{ ORDER : places
-    CART ||--o{ CART_ITEM : contains
-    CART_ITEM }o--|| PRODUCT : refers_to
-    CATEGORY ||--o{ PRODUCT : belongs_to
-    ORDER ||--o{ ORDER_ITEM : contains
-    ORDER_ITEM }o--|| PRODUCT : includes
-    ORDER ||--|| PAYMENT : has
+flowchart TD
+    %% Сущности
+    USER[USER]
+    CATEGORY[CATEGORY]
+    PRODUCT[PRODUCT]
+    CART[CART]
+    ORDER[ORDER]
+    PAYMENT[PAYMENT]
+    CART_ITEM[CART_ITEM]
+    ORDER_ITEM[ORDER_ITEM]
+    
+    %% Связи
+    USER -->|places| ORDER
+    USER -->|has| CART
+    CATEGORY -->|contains| PRODUCT
+    CART -->|contains| CART_ITEM
+    ORDER -->|contains| ORDER_ITEM
+    PRODUCT -->|included_in| ORDER_ITEM
+    ORDER -->|has| PAYMENT
+    PRODUCT -->|added_to| CART_ITEM
+    
+    %% Основные атрибуты
+    USER_ID[user_id PK] -.-> USER
+    USER_EMAIL[email] -.-> USER
+    
+    CATEGORY_ID[category_id PK] -.-> CATEGORY
+    CATEGORY_NAME[name] -.-> CATEGORY
+    
+    PRODUCT_ID[product_id PK] -.-> PRODUCT
+    PRODUCT_NAME[name] -.-> PRODUCT
+    PRODUCT_PRICE[price] -.-> PRODUCT
+    
+    ORDER_ID[order_id PK] -.-> ORDER
+    ORDER_STATUS[status] -.-> ORDER
+    
+    PAYMENT_ID[payment_id PK] -.-> PAYMENT
+    PAYMENT_STATUS[status] -.-> PAYMENT
+    
+    %% Стили
+    classDef entity fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef relationship fill:#f3e5f5,stroke:#4a148c,stroke-width:1px
+    classDef attribute fill:#e8f5e8,stroke:#1b5e20,stroke-width:1px
+    
+    class USER,CATEGORY,PRODUCT,CART,ORDER,PAYMENT,CART_ITEM,ORDER_ITEM entity
+    class USER_ID,USER_EMAIL,CATEGORY_ID,CATEGORY_NAME,PRODUCT_ID,PRODUCT_NAME,PRODUCT_PRICE,ORDER_ID,ORDER_STATUS,PAYMENT_ID,PAYMENT_STATUS attribute
 ```
