@@ -1,3 +1,6 @@
+# ER-диаграмма электронного магазина
+
+```mermaid
 erDiagram
     USER {
         int user_id PK
@@ -68,3 +71,4 @@ erDiagram
     ORDER ||--o{ ORDER_ITEM : contains
     ORDER_ITEM }o--|| PRODUCT : includes
     ORDER ||--|| PAYMENT : has
+```
